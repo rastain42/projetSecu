@@ -5,7 +5,7 @@
 - Front html, TailwindCss
 
 ## démarche
-  node server.js
+  `node server.js`
 
 ## Faille XSS
 
