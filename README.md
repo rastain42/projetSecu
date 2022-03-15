@@ -4,6 +4,9 @@
 - Bdd sqLite
 - Front html, TailwindCss
 
+## démarche
+  `node server.js`
+
 ## Faille XSS
 
 on va tout péter avec de l'injection js
