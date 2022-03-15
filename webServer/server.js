@@ -32,7 +32,7 @@ const port = 8000;
 
 
 const requestListener = function (req, res) {
-    var url;
+    var url = "/templates/home.html";
     switch (req.url) {
         case "/":
             url = "/templates/home.html";
