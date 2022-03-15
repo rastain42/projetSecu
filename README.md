@@ -5,7 +5,21 @@
 - Front html, TailwindCss
 
 ## démarche
+
+  `npm -i`
   `node server.js`
+
+## Concept
+
+- introduire un commentaire avec un photo qui cache du js
+
+- ce js récupère des éléments / data possiblement vulnérables ( ex: onglet /ajoutDroitsAdmin)
+
+- envoie un ajax a notre endpoint
+
+- deuxième injection xss pour exploit la faille
+
+- bam on a les droits
 
 ## Faille XSS
 
