@@ -1,73 +1,119 @@
-const http = require("http");
-const fs = require('fs').promises;
+const express = require('express')
+const app = express()
+var cors = require('cors')
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+var jsonParser = bodyParser.json();
+app.use(cors())
+app.use(jsonParser)
+const signIn = require('./midllewares/User.js');
 
-var sqlite3 = require('sqlite3').verbose();
-let db = new sqlite3.Database('./db/OGchinook.db', sqlite3.OPEN_READWRITE, (err) => {
-    if (err) {
-        console.error(err.message);
-    }
-    console.log('Connected to the database.');
+
+
+
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/projectsecu', {useNewUrlParser: true});
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log("Connexion à la base OK");
 });
 
+const User = require('./models')
 
-// let sql = `SELECT * FROM tracks
-//            ORDER BY AlbumId LIMIT 200`;
+const newUser = new User({username: "toto", email: "t", password: "t"})
+      // const salt = bcrypt.genSaltSync(10);
+      // newUser.password = bcrypt.hashSync(newUser.password, salt);
+newUser.save() 
 
-// db.all(sql, [], (err, rows) => {
-//   if (err) {
-//     throw err;
+
+
+
+// var Music = mongoose.model('Music', musicSchema);
+
+
+
+
+
+// //{"name":"test","style":"aa","author":"aa","url":"aa","image":"aa"}
+
+// app.post('/api/music', async function (req, res) {
+//   try {
+//     const clientmusic = req.body
+//     const notEmpty = Object.values(clientmusic).every(c => c != "")
+//     console.log(notEmpty)
+//     if (notEmpty) {
+//       const music = new Music(req.body)
+//       music.save()
+//       res.send(music)
+//     } else {
+//       throw new Error("All fields aren't complete")
+//     }
+//   } catch (e) {
+//     return res.sendStatus(400);
+
 //   }
+// })
+   
 
-//   rows.forEach((row) => {
-//     console.log(row.Name);
-//   });
-// });
-
-db.close();
-
-
-
-const host = 'localhost';
-const port = 8000;
+// app.delete('/api/music/:id', (req, res) =>{
+//   const currentId = { _id: req.params.id };
+//   Music.deleteOne(currentId)
+//   .then(() => res.send("Entry deleted"))
+//   .catch(err => res.send(err));
+// })
 
 
-const requestListener = function (req, res) {
-    var url;
-    switch (req.url) {
-        case "/":
-            url = "/templates/home.html";
-            break
-        case "/profil":
-            url = "/templates/profil.html";
-            break
-        case "/notifications":
-            url = "/templates/notifications.html";
-            break
-        case "/disconnect":
-            url = "/templates/disconnect.html";
-            break
-        // default :
-        //     url="/404.html";
-    }
-
-    fs.readFile(__dirname + url)
-        .then(contents => {
-            res.setHeader("Content-Type", "text/html");
-            res.writeHead(200);
-            res.end(contents);
-        })
-        .catch(err => {
-            res.writeHead(500);
-            res.end(toString(err));
-            console.error(`Could not read a file: ${err}`);
-            process.exit(1);
-        });
-
-};
+// app.patch('/api/music/:id', (req, res) => {
+//   const clientmusic = req.body
+//   const notEmpty = Object.values(clientmusic).every(c => c != "")
+//   const values = Object.values(req.body)
+//   const keys = Object.keys(req.body)
+  
+//   const obj = {}
+//   if(!notEmpty){
+//     keys.forEach(v => {
+//       if(clientmusic[v] !== ''){
+//         obj[v] = clientmusic[v]
+//       }
+//     })
+//   } else {
+//     obj = clientmusic
+//   }
+//   Music.updateOne({_id: req.params.id}, obj).then( // update one only udpate the prop in parameter 
+//     () => {
+//       console.log('updated')
+//       res.send('It has been saved')
+//     }
+//   ).catch(
+//     (error) => {
+//       console.log('error', error)
+//     }
+//   );
+// })
 
 
-const server = http.createServer(requestListener);
+// app.delete('/music/delete', (req, res) => {
+//   console.log('delete', req, res)
+//   Music.deleteMany({}, function(err, data){
+//     if(err){
+//       res.send(err);
+//     }
+//     res.statusCode = 200;
+//     res.send("ok")
+//   })
+// })
 
-server.listen(port, host, () => {
-    console.log(`Server is running on http://${host}:${port}`);
-});
+
+
+const mainRouter = require('./routes');
+
+app.use('', mainRouter);
+
+
+
+
+
+
+app.listen(3000)
