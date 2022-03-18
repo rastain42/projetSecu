@@ -18,7 +18,9 @@
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"
         integrity="sha256-XF29CBwU1MWLaGEnsELogU6Y6rcc5nCkhhx89nFMIDQ=" crossorigin="anonymous"></script>
+
     <title>WeMonitor</title>
+
 
     <style>
         .bg-black-alt {
@@ -254,17 +256,33 @@
                             </div>
                         </div>
                     </div>
+                    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
                     <script>
                         /////////// TODO : transformer cette requète en ajax natif
                         function send() {
-                            $.ajax({
-                                type: "POST",
-                                url: "localhost:3000/test",
-                                data: "data",
-                                success: function (data) { console.log('message', data.message); },
-                                error: function (jqXHR, textStatus, err) { alert('text status ' + textStatus + ', err ' + err) }
-                            });
+
+                            // httpRequest = new XMLHttpRequest();
+
+                            // httpRequest.open('POST', "localhost:3000/");
+                            // httpRequest.setRequestHeader('Content-Type', 'application/json');
+                            // httpRequest.send('data');
+                            // ////////
+                            let obj = {
+                                test: 'hellloo'
+                            }
+                            axios.post('http://localhost:3000/test', obj)
+                                .then(function (response) {
+                                    console.log(response);
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                });
+
+                            console.log("sent")
                         }
+
+
+
                         /*Toggle dropdown list*/
                         /*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
 
