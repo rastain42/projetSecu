@@ -25,7 +25,8 @@ const signUp = async (req, res) => {
 
 const signIn = async (req, res, next) => {
   const body = req.body;
-  const user = await User.findOne({ email: body.email });
+  const user = await db.User.findOne({ username: body.username });
+  console.log(user, body)
   if (user) {
     // check user password with hashed password stored in the database
     const validPassword = await bcrypt.compare(body.password, user.password);
@@ -35,8 +36,7 @@ const signIn = async (req, res, next) => {
         username: user.username
     }, "Secret", { expiresIn: '3 hours' })
 
-    req.token = ({ access_token: token })
-    next()
+    res.status(200).send(token);
     } else {
       res.status(400).json({ error: "Invalid Password" });
     }

@@ -33,10 +33,8 @@ const { signIn, signUp } = require('../midllewares/User.js')
 
 // router.route('/singIn').get(authMiddleware, dashboard)
 router.route('/signUp').post(signUp)
-router.route('/signIn').post(signIn, (req, res) => {
-  console.log("GET IT")
-  res.redirect('/home')
-})
+router.route('/signIn').post(signIn)
+
 
 
 const { addArticle, getArticles } = require('../midllewares/Article.js')
