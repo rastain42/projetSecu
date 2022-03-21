@@ -39,4 +39,15 @@ router.route('/signIn').post(signIn, (req, res) => {
 })
 
 
+const { addArticle, getArticles } = require('../midllewares/Article.js')
+
+// router.route('/singIn').get(authMiddleware, dashboard)
+router.route('/articles').post(addArticle)
+
+router.route('/articles').get(getArticles)
+
+
+
 module.exports = router
+
+
