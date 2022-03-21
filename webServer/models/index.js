@@ -1,5 +1,5 @@
 const User = require('./User.js')
 const commentSchema = require('./Comment.js')
-const articleSchema = require('./Article.js')
+const Article = require('./Article.js')
 
-module.exports = User
+module.exports =  {Article, User}

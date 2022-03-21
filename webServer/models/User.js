@@ -8,7 +8,7 @@ let userSchema = mongoose.Schema({
     
 }); 
 
-let User = mongoose.model('Music', userSchema);
+let User = mongoose.model('User', userSchema);
 
 
 module.exports = User

@@ -1,4 +1,4 @@
-const User = require('../models/');
+const db = require('../models/');
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken')
 
@@ -9,7 +9,7 @@ const signUp = async (req, res) => {
     const notEmpty = Object.values(user).every(c => c != "")
     console.log(user, notEmpty);
     if(notEmpty) {
-      const newUser = new User(user)
+      const newUser = new db.User(user)
       const salt = bcrypt.genSaltSync(10);
       newUser.password = bcrypt.hashSync(newUser.password, salt);
       newUser.save()      

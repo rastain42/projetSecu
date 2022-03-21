@@ -8,4 +8,7 @@ let articleSchema = mongoose.Schema({
   user_id: String
 }); 
 
-module.exports = articleSchema
+let Article = mongoose.model('Article', articleSchema);
+
+
+module.exports = Article
