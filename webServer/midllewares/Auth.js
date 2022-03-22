@@ -6,11 +6,12 @@ const authenticationMiddleware = async (req, res, next) => {
   console.log(authHeader)
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     console.log("okkkk")
-    return res.status(401).send("Unauthorized")
+    return res.status(403).send("Unauthorized")
     
   }
 
-  if(!authHeader) res.end()
+  if(!authHeader) res.status(403).send("Unauthorized")
+
   const token = authHeader.split(' ')[1]
 
   try {
@@ -20,9 +21,7 @@ const authenticationMiddleware = async (req, res, next) => {
     req.user = { id, username }
     next()
   } catch (error) {
-    return res.end()
-     
-
+    return res.status(403).send("Unauthorized")
   }
 }
 

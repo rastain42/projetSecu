@@ -40,7 +40,7 @@ router.route('/signIn').post(signIn)
 const { addArticle, getArticles } = require('../midllewares/Article.js')
 
 // router.route('/singIn').get(authMiddleware, dashboard)
-router.route('/articles').post(addArticle)
+router.route('/articles').post(authenticationMiddleware, addArticle)
 
 router.route('/articles').get(getArticles)
 

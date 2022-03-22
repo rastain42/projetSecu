@@ -34,6 +34,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import axios from 'axios';
+import VueRouter from 'vue-router';
 import store from '../store';
 
 @Options({
@@ -51,19 +52,18 @@ export default class Login extends Vue {
   }
 
   test() {
-    console.log('hello', store.state.user, this);
+    console.log('hello', store.state.user, this.$router);
   }
 
   mounted() {
-    console.log('hello', store.state.user, this);
+    console.log('hello', this.$router);
   }
 
   async login() {
     console.log(this);
     try {
-      const res = await axios.post('http://localhost:3000/signIn', { username: this.username, password: this.password });
-      const response = { isAuthenticated: true, token: res.data };
-      store.state.user = response;
+      store.dispatch('login', { username: this.username, password: this.password });
+      this.$router.replace('/');
     } catch (e) {
       console.log('error', e);
     }
