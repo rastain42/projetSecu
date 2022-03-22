@@ -5,7 +5,7 @@ const authenticationMiddleware = async (req, res, next) => {
   const authHeader = req.headers.authorization
   console.log(authHeader)
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    console.log("okkkk")
+    console.log("[log] unAuthorized connexion attempt")
     return res.status(403).send("Unauthorized")
     
   }
@@ -20,6 +20,8 @@ const authenticationMiddleware = async (req, res, next) => {
     const { id, username } = decoded
     req.user = { id, username }
     next()
+    console.log("[log] Authorized connexion")
+
   } catch (error) {
     return res.status(403).send("Unauthorized")
   }

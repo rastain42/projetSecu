@@ -14,6 +14,7 @@ const signUp = async (req, res) => {
       newUser.password = bcrypt.hashSync(newUser.password, salt);
       newUser.save()      
       res.status(200).send(newUser);
+      console.log("[log] user registered")
     } else {
       res.send(401);
     }

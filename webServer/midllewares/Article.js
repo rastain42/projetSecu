@@ -1,9 +1,5 @@
 const db = require('../models')
 
-
-
-
-
 const addArticle = async (req, res, next) => {
   try{
 
@@ -26,7 +22,6 @@ const addArticle = async (req, res, next) => {
   }
 
 }
-
 
 const getArticles = async (req, res, next) => {
   try {
