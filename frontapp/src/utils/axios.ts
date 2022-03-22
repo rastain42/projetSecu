@@ -1,7 +1,9 @@
 import axios from 'axios';
 import store from '../store';
 
-const axiosApiInstance = axios.create();
+const axiosApiInstance = axios.create({
+  baseURL: 'http://localhost:3000/',
+});
 
 // Request interceptor for API calls
 axiosApiInstance.interceptors.request.use(
@@ -9,8 +11,6 @@ axiosApiInstance.interceptors.request.use(
     if (store.state.user.isAuthenticated) {
       config.headers = {
         Authorization: `Bearer ${store.state.user.token}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded',
       };
     }
     return config;
