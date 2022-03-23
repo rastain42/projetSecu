@@ -125,16 +125,17 @@ export default class Home extends Vue {
   articleList= []
 
   async postArticle() {
-    console.log(this);
-    const article = { title: this.article.title, content: this.article.content };
-    const headers = {
-      Authorization: 'Bearer my-token',
-    };
-    axios.post('http://localhost:3000/articles', article, { headers })
-    // .then(response => this.articleId = response.data.id)
-      .catch((error) => {
-        console.error('There was an error!', error);
-      });
+    // console.log(this);
+    // const article = { title: this.article.title, content: this.article.content };
+    // const headers = {
+    //   Authorization: 'Bearer my-token',
+    // };
+    // axios.post('http://localhost:3000/articles', article, { headers })
+    // // .then(response => this.articleId = response.data.id)
+    //   .catch((error) => {
+    //     console.error('There was an error!', error);
+    //   });
+    
   }
 
   getArticles() {
