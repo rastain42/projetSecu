@@ -56,7 +56,7 @@ export default class Login extends Vue {
     console.log(this);
     try {
       store.dispatch('login', { username: this.username, password: this.password });
-      this.$router.replace('/');
+      this.$router.replace('/home');
     } catch (e) {
       console.log('error', e);
     }

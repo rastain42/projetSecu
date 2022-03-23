@@ -111,6 +111,7 @@
 import axios from 'axios';
 import { Options, Vue } from 'vue-class-component';
 import store from '../store';
+import axiosApiInstance from '../utils/axios';
 
 @Options({
   components: {},
@@ -125,17 +126,16 @@ export default class Home extends Vue {
   articleList= []
 
   async postArticle() {
-    // console.log(this);
-    // const article = { title: this.article.title, content: this.article.content };
-    // const headers = {
-    //   Authorization: 'Bearer my-token',
-    // };
-    // axios.post('http://localhost:3000/articles', article, { headers })
-    // // .then(response => this.articleId = response.data.id)
-    //   .catch((error) => {
-    //     console.error('There was an error!', error);
-    //   });
-    
+    console.log(this);
+    const article = { title: this.article.title, content: this.article.content };
+    const headers = {
+      Authorization: 'Bearer my-token',
+    };
+    axiosApiInstance.post('http://localhost:3000/articles', article)
+    // .then(response => this.articleId = response.data.id)
+      .catch((error) => {
+        console.error('There was an error!', error);
+      });
   }
 
   getArticles() {

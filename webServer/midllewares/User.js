@@ -35,7 +35,7 @@ const signIn = async (req, res, next) => {
       const token = jwt.sign({
         id: user.id,
         username: user.username
-    }, "Secret", { expiresIn: '3 hours' })
+    }, "ewjoncewbdewbwdnu21uh213uo1ioewedpjwpe", { expiresIn: '3 hours' })
 
     res.status(200).send(token);
     } else {
