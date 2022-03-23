@@ -1,6 +1,8 @@
 import { createStore } from 'vuex';
 import axios from 'axios';
 
+const target = new EventTarget();
+
 export default createStore({
   state: {
     user: {
@@ -18,10 +20,11 @@ export default createStore({
       console.log('hello');
       try {
         const res = await axios.post('http://localhost:3000/signIn', credentials);
-        console.log(res.data);
+
+        console.log('OKK');
         this.commit('authenticateUser', { isAuthenticated: true, token: res.data });
       } catch (error) {
-        console.log(error);
+        throw new Error();
       }
     },
   },

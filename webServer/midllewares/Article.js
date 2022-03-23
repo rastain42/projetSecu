@@ -6,7 +6,7 @@ const addArticle = async (req, res, next) => {
     const article = req.body
     const notEmpty = Object.values(article).every(c => c != "")
     console.log(notEmpty, article)
-    if(notEmpty) {
+    if(true) {
       const newArticle = new db.Article({title: "hello", content: "world", image: "images", user_id: "helllo"})
       console.log("article", article)
       newArticle.save()
@@ -25,7 +25,7 @@ const addArticle = async (req, res, next) => {
 
 const getArticles = async (req, res, next) => {
   try {
-    const data = await Article.find({})
+    const data = await db.Article.find({})
     res.send(data)  
 
   } catch (e) {

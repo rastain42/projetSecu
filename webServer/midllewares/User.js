@@ -35,7 +35,8 @@ const signIn = async (req, res, next) => {
       const token = jwt.sign({
         id: user.id,
         username: user.username
-    }, "ewjoncewbdewbwdnu21uh213uo1ioewedpjwpe", { expiresIn: '3 hours' })
+    }, "Secret", { expiresIn: '3 hours' })
+    console.log('TOKENNN 1 =>', token)
 
     res.status(200).send(token);
     } else {

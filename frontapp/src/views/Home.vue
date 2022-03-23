@@ -4,7 +4,7 @@
   <nav id="header" class="bg-gray-900 fixed w-full z-10 top-0 shadow">
     <div class="w-full container mx-auto flex flex-wrap items-center mt-0 pt-3 pb-3 md:pb-0">
       <div class="w-1/2 md:pl-0 text-left">
-          <a class="text-gray-100 text-base xl:text-xl no-underline hover:no-underline font-bold " href="/">
+          <a @click="test" class="text-gray-100 text-base xl:text-xl no-underline hover:no-underline font-bold " >
               <i class="fas fa-moon text-blue-400 pr-6 "></i> XSS secured ;)
           </a>
       </div>
@@ -125,25 +125,37 @@ export default class Home extends Vue {
 
   articleList= []
 
+  test() {
+    console.log(this.articleList);
+  }
+
   async postArticle() {
     console.log(this);
     const article = { title: this.article.title, content: this.article.content };
     const headers = {
       Authorization: 'Bearer my-token',
     };
-    axiosApiInstance.post('http://localhost:3000/articles', article)
+    try {
+      await axiosApiInstance.post('http://localhost:3000/articles', article);
+      await this.getArticles();
+    } catch (e) {
+      console.log(e);
+    }
     // .then(response => this.articleId = response.data.id)
-      .catch((error) => {
-        console.error('There was an error!', error);
-      });
   }
 
-  getArticles() {
-    axios.get('http://localhost:3000/articles')
-      .then((response) => { this.articleList = response.data.total; })
-      .catch((error) => {
-        console.error('There was an error!', error);
-      });
+  async mounted() {
+    this.getArticles();
+  }
+
+  async getArticles() {
+    try {
+      const res = await axiosApiInstance.get('http://localhost:3000/articles');
+      console.log(res.data);
+      this.articleList = res.data;
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
 </script>

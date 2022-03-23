@@ -40,6 +40,8 @@ import store from '../store';
   },
 })
 export default class Login extends Vue {
+  target = new EventTarget()
+
   username = ''
 
   password = ''
@@ -55,7 +57,7 @@ export default class Login extends Vue {
   async login() {
     console.log(this);
     try {
-      store.dispatch('login', { username: this.username, password: this.password });
+      await store.dispatch('login', { username: this.username, password: this.password });
       this.$router.replace('/home');
     } catch (e) {
       console.log('error', e);
