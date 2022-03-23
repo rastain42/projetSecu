@@ -7,7 +7,7 @@ const addArticle = async (req, res, next) => {
     const notEmpty = Object.values(article).every(c => c != "")
     console.log(notEmpty, article)
     if(true) {
-      const newArticle = new db.Article({title: "hello", content: "world", image: "images", user_id: "helllo"})
+      const newArticle = new db.Article(article)
       console.log("article", article)
       newArticle.save()
       res.status(200).send(newArticle);

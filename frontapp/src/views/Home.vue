@@ -118,10 +118,9 @@ import axiosApiInstance from '../utils/axios';
 })
 
 export default class Home extends Vue {
-  article = {
-    title: '',
-    content: '',
-  }
+ title = ''
+
+ content = ''
 
   articleList= []
 
@@ -131,17 +130,15 @@ export default class Home extends Vue {
 
   async postArticle() {
     console.log(this);
-    const article = { title: this.article.title, content: this.article.content };
     const headers = {
       Authorization: 'Bearer my-token',
     };
     try {
-      await axiosApiInstance.post('http://localhost:3000/articles', article);
+      await axiosApiInstance.post('http://localhost:3000/articles', { title: this.title, content: this.content });
       await this.getArticles();
     } catch (e) {
       console.log(e);
     }
-    // .then(response => this.articleId = response.data.id)
   }
 
   async mounted() {
@@ -151,7 +148,6 @@ export default class Home extends Vue {
   async getArticles() {
     try {
       const res = await axiosApiInstance.get('http://localhost:3000/articles');
-      console.log(res.data);
       this.articleList = res.data;
     } catch (e) {
       console.log(e);
