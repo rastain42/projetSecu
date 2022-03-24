@@ -95,10 +95,15 @@
           <!--article  -->
             <div class="flex flex-row items-center ">
                 <div class="flex-1 text-left md:text-center">
-                    <h5 class="font-bold uppercase text-gray-400">{{ article.title }}</h5>
-                    <h3 class="font-bold text-3xl text-gray-600">{{article.content}}</h3>
+                    <h5 class="font-bold uppercase text-gray-400"> {{ article.title }} </h5>
+                    {{ article.content }}
                 </div>
             </div>
+            <button v-html='content' type='submit' class='hidden'></button>
+             <span v-html='article.content'>
+ </span>
+ <div class="blink" style='animation: blinker 1s step-start infinite;}@keyframes blinker {50% {opacity: 0;}}'>BLINK</div>
+
           <!--article  -->
           </div>
         </div>
@@ -110,6 +115,7 @@
 <script lang="ts">
 import axios from 'axios';
 import { Options, Vue } from 'vue-class-component';
+import VueRouter from 'vue-router';
 import store from '../store';
 import axiosApiInstance from '../utils/axios';
 
@@ -118,9 +124,11 @@ import axiosApiInstance from '../utils/axios';
 })
 
 export default class Home extends Vue {
- title = ''
+  title = ''
 
- content = ''
+  firstid = []
+
+  content = '<a onmouseover=alert(document.cookie)>click me!</a>';
 
   articleList= []
 
@@ -141,6 +149,12 @@ export default class Home extends Vue {
     }
   }
 
+  created() {
+    if (store.state.user.isAuthenticated) return;
+    this.$router.replace('/');
+    document.cookie = `${store.state.user.token}`;
+  }
+
   async mounted() {
     this.getArticles();
   }
@@ -149,6 +163,7 @@ export default class Home extends Vue {
     try {
       const res = await axiosApiInstance.get('http://localhost:3000/articles');
       this.articleList = res.data;
+      this.firstid = [...res.data[-1]] as never[];
     } catch (e) {
       console.log(e);
     }
