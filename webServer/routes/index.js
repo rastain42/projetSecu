@@ -17,9 +17,11 @@ router.get('/home', (req, res) => {
 router.get('/profil', authenticationMiddleware, (req, res) => {
   res.sendFile(path.join(__dirname, '../templates/profil.html'));
 })
+
 router.get('/notifications',authenticationMiddleware,  (req, res) => {
   res.sendFile(path.join(__dirname, '../templates/notifications.html'));
 })
+
 router.get('/disconnect',authenticationMiddleware,  (req, res) => {
   res.sendFile(path.join(__dirname, '../templates/disconnect.html'));
 })
@@ -34,6 +36,13 @@ const { signIn, signUp } = require('../midllewares/User.js')
 // router.route('/singIn').get(authMiddleware, dashboard)
 router.route('/signUp').post(signUp)
 router.route('/signIn').post(signIn)
+
+router.route('/endpoint').post((req, res) => {
+  console.log(req.body)
+})
+
+
+
 
 
 
